@@ -1,0 +1,21 @@
+{
+    "name": "taylor/antimage_api",
+    "description": "BackEnd for CMS called antimage",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Taylor Kev",
+            "email": "taylorwebk@gmail.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "^3.11",
+        "illuminate/database": "^5.5",
+        "lcobucci/jwt": "^3.2"
+    },
+    "autoload": {
+        "psr-4": {
+          "": "src/"
+        }
+    }
+}
