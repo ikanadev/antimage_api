@@ -54,11 +54,15 @@ class AdminController
         } else {
             $saludo = $hora <= 18 ? 'Buenas tardes ' : 'Buenas Noches';
         }
+        $data = [
+            'admin'     => $admin,
+            'carrer'    => Utils::getCarrer()
+        ];
         return Res::OKWhitToken(
             'Login correcto',
             $saludo . $admin->nombres,
             $tokenstr,
-            $admin
+            $data
         );
     }
 

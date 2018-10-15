@@ -3,6 +3,7 @@
 require './vendor/autoload.php';
 date_default_timezone_set('America/La_Paz');
 define("PROJECTPATH", __DIR__);
+define("PROJECTNAME", substr(PROJECTPATH, strrpos(PROJECTPATH, DIRECTORY_SEPARATOR) + 1));
 define("IP", $_SERVER['SERVER_NAME']);
 define("PRIVATEKEY", "ISEEDEADPEOPLE");
 
@@ -23,21 +24,21 @@ $app = new \Slim\App(['settings' => $config]);
 
 $container = $app->getContainer();
 /* $container['errorHandler'] = function ($c) {
-  return function ($request, $response, $exception) use ($c) {
-    $data;
-    $data['code'] = 500;
-    $data['devmsg'] = $exception->getMessage();
-    $data['usrmsg'] = "error";
-    $data['content'] = null;
-    return $c['response']->withJson($data);
-  };
+return function ($request, $response, $exception) use ($c) {
+$data;
+$data['code'] = 500;
+$data['devmsg'] = $exception->getMessage();
+$data['usrmsg'] = "error";
+$data['content'] = null;
+return $c['response']->withJson($data);
+};
 }; */
 // LOGGER
 /* $container['logger'] = function($c) {
-    $logger = new \Monolog\Logger('my_logger');
-    $file_handler = new \Monolog\Handler\StreamHandler('./logs/app.log');
-    $logger->pushHandler($file_handler);
-    return $logger;
+$logger = new \Monolog\Logger('my_logger');
+$file_handler = new \Monolog\Handler\StreamHandler('./logs/app.log');
+$logger->pushHandler($file_handler);
+return $logger;
 }; */
 // VIEWS AND PDF
 //$container['view'] = new \Slim\Views\PhpRenderer(PROJECTPATH.'/src/templates/');
@@ -48,5 +49,5 @@ $capsule->addConnection($container->get('settings')['db']);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
-include_once(PROJECTPATH.'/src/Routes/Routes.php');
+include_once PROJECTPATH . '/src/Routes/Routes.php';
 $app->run();

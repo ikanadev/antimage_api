@@ -104,3 +104,7 @@ create table admin(
   primary key(id)
 );
 insert into admin values (null, 'Admin', 'Administrator', '$2y$10$txZFHz7PqP1td1yeg.qYBuBtVy4CKvcGJfQQi2XNq/uMdKQjUCKxO', 'admin@admin.com', 'admin');
+insert into carrera values (null,
+  'Nombre Carrera',
+  'https://img.clipartxtras.com/fe97cd12676ecc3e6f195f52cf6ff01c_building-logo-clipart-png-2-clipart-station-building-logo-clipart-png_389-346.png',
+  'La Carrera de Ing. se especializa en formar los mejores profesionales en el area de LOREM IPSUM a nivel nacional');

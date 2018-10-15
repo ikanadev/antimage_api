@@ -1,5 +1,6 @@
 <?php
 use \Controllers\AdminController as AC;
+use \Controllers\CarrerController as CarrerC;
 use \Middlewares\AdminAuth;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
@@ -29,6 +30,15 @@ $app->group('/admin', function () use ($app) {
     $app->put('/', function (Request $req, Response $res) {
         $admin = $req->getAttribute('admin');
         $result = AC::UpdateAdmin($admin, $req->getParsedBody());
+        return $res->withJson($result);
+    });
+})->add(new AdminAuth());
+$app->group('/carrer', function () use ($app) {
+    // actualizar los datos de la carrera 'nombre, descripcion y urlLogo'
+    $app->put('/', function (Request $req, Response $res) {
+        $file = count($req->getUploadedFiles()) == 0 ? null : $req->getUploadedFiles()['urlLogo'];
+        $admin = $req->getAttribute('admin');
+        $result = CarrerC::Update($admin, $file, $req->getParsedBody());
         return $res->withJson($result);
     });
 })->add(new AdminAuth());

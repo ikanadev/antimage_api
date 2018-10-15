@@ -4,6 +4,8 @@ namespace Models;
 use \Lcobucci\JWT\Builder;
 use \Lcobucci\JWT\Parser;
 use \Lcobucci\JWT\ValidationData;
+use \Models\Carrera;
+use \Slim\Http\UploadedFile;
 
 class Utils
 {
@@ -34,6 +36,20 @@ class Utils
             ];
         }
         return false;
+    }
+    public static function getCarrer()
+    {
+        return Carrera::first();
+    }
+    public static function moveUploadedFile($directory, UploadedFile $uploadedFile)
+    {
+        $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
+        $basename = bin2hex(random_bytes(8)); // see http://php.net/manual/en/function.random-bytes.php
+        $filename = sprintf('%s.%0.8s', $basename, $extension);
+
+        $uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . $filename);
+
+        return $filename;
     }
     public static function validateData($data, $fields)
     {
