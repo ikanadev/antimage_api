@@ -3,9 +3,10 @@ namespace Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Carrera extends Model
+class SubMenu extends Model
 {
     protected $guarded = [];
-    protected $table = 'carrera';
+    protected $table = 'submenu';
+    protected $hidden = ['menu_id'];
     public $timestamps = false;
 }

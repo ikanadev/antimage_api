@@ -1,6 +1,7 @@
 <?php
 use \Controllers\AdminController as AC;
 use \Controllers\CarrerController as CarrerC;
+use \Controllers\MenuController as MenuC;
 use \Middlewares\AdminAuth;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
@@ -15,9 +16,9 @@ $app->group('/writer', function () use ($app) {
         $result = AC::AddWriter($admin, $req->getParsedBody());
         return $res->withJson($result);
     });
-    // para que un publicador pueda modificar su perfil si lo envia un 
+    // para que un publicador pueda modificar su perfil si lo envia un
     // admin, mandar 'id, nombres, correo, password, apellidos'
-    // si envia un writer, mandar el id de si mismo (actulizar datos) 
+    // si envia un writer, mandar el id de si mismo (actulizar datos)
     // 'id, nombres, apellidos y password'
     $app->put('/', function (Request $req, Response $res) {
         $admin = $req->getAttribute('admin');
@@ -39,6 +40,38 @@ $app->group('/carrer', function () use ($app) {
         $file = count($req->getUploadedFiles()) == 0 ? null : $req->getUploadedFiles()['urlLogo'];
         $admin = $req->getAttribute('admin');
         $result = CarrerC::Update($admin, $file, $req->getParsedBody());
+        return $res->withJson($result);
+    });
+})->add(new AdminAuth());
+$app->group('/menu', function () use ($app) {
+    // Registrar nuevo menu, solo enviar 'nombre'
+    $app->post('/', function (Request $req, Response $res) {
+        $admin = $req->getAttribute('admin');
+        $result = MenuC::Add($admin, $req->getParsedBody());
+        return $res->withJson($result);
+    });
+    // Actualizar un menu: { id: 2, datos: {nombre*: '', estado*: [1,0]}}
+    $app->put('/', function (Request $req, Response $res) {
+        $admin = $req->getAttribute('admin');
+        $result = MenuC::Update($admin, $req->getParsedBody());
+        return $res->withJson($result);
+    });
+    // Registrar nuevo menu, envia 'nombre, menuId y tipo ['posts, page']'
+    $app->post('/submenu', function (Request $req, Response $res) {
+        $admin = $req->getAttribute('admin');
+        $result = MenuC::AddSubmenu($admin, $req->getParsedBody());
+        return $res->withJson($result);
+    });
+    // Actulizar un Submenu: { id: 2(del submenu), datos: {nombre*: '', estado*: [1,0]}}
+    $app->put('/submenu', function (Request $req, Response $res) {
+        $admin = $req->getAttribute('admin');
+        $result = MenuC::UpdateSubmenu($admin, $req->getParsedBody());
+        return $res->withJson($result);
+    });
+    // List of menus.
+    $app->get('/', function (Request $req, Response $res) {
+        $admin = $req->getAttribute('admin');
+        $result = MenuC::List($admin);
         return $res->withJson($result);
     });
 })->add(new AdminAuth());

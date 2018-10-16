@@ -13,6 +13,7 @@ create table contacto(
   carrera_id integer not null,
   valor varchar(127),
   tipo enum('correo', 'celular', 'correo'),
+  nombre varchar(127),
   primary key(id),
   foreign key(carrera_id)
   references carrera(id)
@@ -65,6 +66,7 @@ create table submenu(
   menu_id integer not null,
   nombre varchar(127),
   estado boolean,
+  tipo enum('posts', 'page'),
   primary key(id),
   foreign key(menu_id)
   references menu(id)
