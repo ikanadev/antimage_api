@@ -1,7 +1,10 @@
 <?php
 use \Controllers\AdminController as AC;
 use \Controllers\CarrerController as CarrerC;
+use \Controllers\ContactoController as ContactC;
 use \Controllers\MenuController as MenuC;
+use \Controllers\RedSocialController as RedSocialC;
+use \Controllers\EnlaceExternoController as EExternoC;
 use \Middlewares\AdminAuth;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
@@ -71,7 +74,54 @@ $app->group('/menu', function () use ($app) {
     // List of menus.
     $app->get('/', function (Request $req, Response $res) {
         $admin = $req->getAttribute('admin');
-        $result = MenuC::List($admin);
+        $result = MenuC::list($admin);
+        return $res->withJson($result);
+    });
+})->add(new AdminAuth());
+$app->group('/contact', function () use ($app) {
+    // nuevo contacto
+    $app->post('/', function (Request $req, Response $res) {
+        $admin = $req->getAttribute('admin');
+        $result = ContactC::Add($admin, $req->getParsedBody());
+        return $res->withJson($result);
+    });
+    $app->put('/', function (Request $req, Response $res) {
+        $admin = $req->getAttribute('admin');
+        $result = ContactC::Update($admin, $req->getParsedBody());
+        return $res->withJson($result);
+    });
+    $app->delete('/', function (Request $req, Response $res) {
+        $admin = $req->getAttribute('admin');
+        $result = ContactC::Delete($admin, $req->getParsedBody());
+        return $res->withJson($result);
+    });
+    $app->get('/', function (Request $req, Response $res) {
+        $admin = $req->getAttribute('admin');
+        $result = ContactC::List($admin);
+        return $res->withJson($result);
+    });
+})->add(new AdminAuth());
+$app->group('/social', function () use ($app) {
+    $app->put('/', function (Request $req, Response $res) {
+        $admin = $req->getAttribute('admin');
+        $result = RedSocialC::Update($admin, $req->getParsedBody());
+        return $res->withJson($result);
+    });
+    $app->get('/', function (Request $req, Response $res) {
+        $admin = $req->getAttribute('admin');
+        $result = RedSocialC::List($admin);
+        return $res->withJson($result);
+    });
+})->add(new AdminAuth());
+$app->group('/link', function () use ($app) {
+    $app->post('/', function (Request $req, Response $res) {
+        $admin = $req->getAttribute('admin');
+        $result = EExternoC::Add($admin, $req->getParsedBody());
+        return $res->withJson($result);
+    });
+    $app->put('/', function (Request $req, Response $res) {
+        $admin = $req->getAttribute('admin');
+        $result = EExternoC::Update($admin, $req->getParsedBody());
         return $res->withJson($result);
     });
 })->add(new AdminAuth());

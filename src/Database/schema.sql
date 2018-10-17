@@ -12,7 +12,7 @@ create table contacto(
   id integer not null auto_increment,
   carrera_id integer not null,
   valor varchar(127),
-  tipo enum('correo', 'celular', 'correo'),
+  tipo enum('correo', 'celular', 'telefono'),
   nombre varchar(127),
   primary key(id),
   foreign key(carrera_id)
@@ -41,7 +41,7 @@ create table carousel(
   references carrera(id)
   on delete cascade
 );
-create table enlacesExternos(
+create table enlaceExterno(
   id integer not null auto_increment,
   carrera_id integer not null,
   urlEnlace varchar(127),
@@ -110,3 +110,10 @@ insert into carrera values (null,
   'Nombre Carrera',
   'https://img.clipartxtras.com/fe97cd12676ecc3e6f195f52cf6ff01c_building-logo-clipart-png-2-clipart-station-building-logo-clipart-png_389-346.png',
   'La Carrera de Ing. se especializa en formar los mejores profesionales en el area de LOREM IPSUM a nivel nacional');
+insert into redSocial values(null, 1, 'facebook', 'https://facebook.com', 'Página Facebook');
+insert into redSocial values(null, 1, 'youtube', 'https://youtube.com', 'Canal de Youtube');
+insert into redSocial values(null, 1, 'whatsapp', 'https://web.whatsapp.com', 'Grupo de Whatsapp');
+insert into redSocial values(null, 1, 'instagram', 'https://instagram.com', 'Síguenos en Instagram');
+insert into redSocial values(null, 1, 'twitter', 'https://twitter.com', 'Síguenos en Twitter');
+insert into redSocial values(null, 1, 'linkedin', 'https://www.linkedin.com', 'Perfil Linkedin');
+insert into redSocial values(null, 1, 'twitch', 'https://www.twitch.tv', 'Transmisión en Twitch');
