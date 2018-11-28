@@ -41,6 +41,12 @@ class Utils
     {
         return Carrera::first();
     }
+    public static function getCarrerWithProtocol()
+    {
+        $carrera = Carrera::first();
+        $carrera->urlLogo = self::withProtocol($carrera->urlLogo);
+        return $carrera;
+    }
     public static function moveUploadedFile($directory, UploadedFile $uploadedFile)
     {
         $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
@@ -63,5 +69,10 @@ class Utils
     public static function implodeFields($fields)
     {
         return 'No se reconocen uno o varios de los campos: ' . implode(', ', $fields);
+    }
+    public static function withProtocol($url)
+    {
+        $protocol = stripos($_SERVER['SERVER_PROTOCOL'],'https') === true ? 'https://' : 'http://';
+        return $protocol . $url;
     }
 }

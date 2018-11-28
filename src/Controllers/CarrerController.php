@@ -15,6 +15,8 @@ class CarrerController
         }
         $carrer = Utils::getCarrer();
         $carrer->update($data);
+        $carrer = Utils::getCarrerWithProtocol();
+        //return $carrer;
         $data = [
             'admin' => $admin,
             'carrer' => $carrer,

@@ -56,7 +56,7 @@ class AdminController
         }
         $data = [
             'admin'     => $admin,
-            'carrer'    => Utils::getCarrer()
+            'carrer'    => Utils::getCarrerWithProtocol()
         ];
         return Res::OKWhitToken(
             'Login correcto',
