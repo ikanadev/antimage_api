@@ -41,6 +41,7 @@ class CarouselController
             return Res::InternarServerError('No se pudo encontrar el carousel con ID: ' . $data['id']);
         }
         $carousel->update($data);
+        $carousel->urlImg = Utils::withProtocol($carousel->urlImg);
         return Res::OKWhitToken(
             'Carousel actualizado',
             'Carousel Actulizado.',

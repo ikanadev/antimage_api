@@ -1,5 +1,5 @@
 [database]
 host    = localhost
-user    = taylor
+user    = root
 password= tallarin3
 database= antimage

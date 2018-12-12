@@ -28,6 +28,7 @@ class AdminAuth
         $admin = Admin::Where('correo', $data['correo'])->first();
         if (!$admin) {
             $response = Res::InternarServerError('Error identificando el token');
+            return $res->withJson($response);
         }
         $req = $req->withAttribute('admin', $admin);
         $res = $next($req, $res);

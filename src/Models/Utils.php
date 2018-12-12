@@ -18,7 +18,7 @@ class Utils
         $tokenstr = (new Builder())
             ->setIssuer(IP)
             ->setIssuedAt($currentTime)
-            ->setExpiration($currentTime + 3600)
+            ->setExpiration($currentTime + 3600 * 24)
             ->set('id', $id)
             ->set('correo', $correo)
             ->getToken();
