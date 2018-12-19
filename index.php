@@ -7,7 +7,20 @@ define("PROJECTNAME", substr(PROJECTPATH, strrpos(PROJECTPATH, DIRECTORY_SEPARAT
 define("IP", $_SERVER['SERVER_NAME']);
 define("PRIVATEKEY", "ISEEDEADPEOPLE");
 
-$dbconfig = parse_ini_file(PROJECTPATH . '/src/Database/config.db');
+$whitelist = array(
+  '127.0.0.1',
+  '::1'
+);
+
+$configFile = '';
+
+if (in_array($_SERVER['REMOTE_ADDR'], $whitelist)){
+  $configFile = '/src/Database/config.db';
+} else {
+  $configFile = '/src/Database/configs.db';
+}
+
+$dbconfig = parse_ini_file(PROJECTPATH . $configFile);
 
 $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;

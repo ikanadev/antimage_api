@@ -20,12 +20,28 @@ $app->get(
 $app->group(
   '/writer',
   function () use ($app) {
+    $app->get(
+      '/',
+      function (Request $req, Response $res) {
+        $admin  = $req->getAttribute('admin');
+        $result = AC::list($admin);
+        return $res->withJson($result);
+      }
+    );
+    $app->delete(
+      '/',
+      function (Request $req, Response $res) {
+        $admin  = $req->getAttribute('admin');
+        $result = AC::delete($admin, $req->getParsedBody());
+        return $res->withJson($result);
+      }
+    );
     // para registrar a un nuevo publicador
     $app->post(
       '/',
       function (Request $req, Response $res) {
         $admin  = $req->getAttribute('admin');
-        $result = AC::AddWriter($admin, $req->getParsedBody());
+        $result = AC::addWriter($admin, $req->getParsedBody());
         return $res->withJson($result);
       }
     );
@@ -38,7 +54,7 @@ $app->group(
       '/',
       function (Request $req, Response $res) {
         $admin  = $req->getAttribute('admin');
-        $result = AC::UpdateWriter($admin, $req->getParsedBody());
+        $result = AC::updateWriter($admin, $req->getParsedBody());
         return $res->withJson($result);
       }
     );
@@ -53,7 +69,7 @@ $app->group(
       '/',
       function (Request $req, Response $res) {
         $admin  = $req->getAttribute('admin');
-        $result = AC::UpdateAdmin($admin, $req->getParsedBody());
+        $result = AC::updateAdmin($admin, $req->getParsedBody());
         return $res->withJson($result);
       }
     );
@@ -169,7 +185,7 @@ $app->group(
       '/',
       function (Request $req, Response $res) {
         $admin  = $req->getAttribute('admin');
-        $result = RedSocialC::Update($admin, $req->getParsedBody());
+        $result = RedSocialC::update($admin, $req->getParsedBody());
         return $res->withJson($result);
       }
     );
@@ -186,11 +202,19 @@ $app->group(
 $app->group(
   '/link',
   function () use ($app) {
+    $app->get(
+      '/',
+      function (Request $req, Response $res) {
+        $admin  = $req->getAttribute('admin');
+        $result = EExternoC::list($admin);
+        return $res->withJson($result);
+      }
+    );
     $app->post(
       '/',
       function (Request $req, Response $res) {
         $admin  = $req->getAttribute('admin');
-        $result = EExternoC::Add($admin, $req->getParsedBody());
+        $result = EExternoC::add($admin, $req->getParsedBody());
         return $res->withJson($result);
       }
     );
@@ -198,7 +222,15 @@ $app->group(
       '/',
       function (Request $req, Response $res) {
         $admin  = $req->getAttribute('admin');
-        $result = EExternoC::Update($admin, $req->getParsedBody());
+        $result = EExternoC::update($admin, $req->getParsedBody());
+        return $res->withJson($result);
+      }
+    );
+    $app->delete(
+      '/',
+      function (Request $req, Response $res) {
+        $admin  = $req->getAttribute('admin');
+        $result = EExternoC::delete($admin, $req->getParsedBody());
         return $res->withJson($result);
       }
     );
@@ -246,7 +278,7 @@ $app->group(
 $app->post(
   '/login',
   function (Request $req, Response $res) {
-    $result = AC::Login($req->getParsedBody());
+    $result = AC::login($req->getParsedBody());
     return $res->withJson($result);
   }
 );

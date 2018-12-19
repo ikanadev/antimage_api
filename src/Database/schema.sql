@@ -25,6 +25,7 @@ create table redSocial(
   nombre enum('facebook', 'youtube', 'whatsapp', 'instagram', 'twitter', 'linkedin', 'twitch'),
   url varchar(127),
   texto varchar(127),
+  habilitado boolean default 0,
   primary key(id),
   foreign key(carrera_id)
   references carrera(id)
@@ -110,10 +111,10 @@ insert into carrera values (null,
   'Nombre Carrera',
   'https://img.clipartxtras.com/fe97cd12676ecc3e6f195f52cf6ff01c_building-logo-clipart-png-2-clipart-station-building-logo-clipart-png_389-346.png',
   'La Carrera de Ing. se especializa en formar los mejores profesionales en el area de LOREM IPSUM a nivel nacional');
-insert into redSocial values(null, 1, 'facebook', 'https://facebook.com', 'Página Facebook');
-insert into redSocial values(null, 1, 'youtube', 'https://youtube.com', 'Canal de Youtube');
-insert into redSocial values(null, 1, 'whatsapp', 'https://web.whatsapp.com', 'Grupo de Whatsapp');
-insert into redSocial values(null, 1, 'instagram', 'https://instagram.com', 'Síguenos en Instagram');
-insert into redSocial values(null, 1, 'twitter', 'https://twitter.com', 'Síguenos en Twitter');
-insert into redSocial values(null, 1, 'linkedin', 'https://www.linkedin.com', 'Perfil Linkedin');
-insert into redSocial values(null, 1, 'twitch', 'https://www.twitch.tv', 'Transmisión en Twitch');
+insert into redSocial values(null, 1, 'facebook', 'https://facebook.com', 'Página Facebook', 0);
+insert into redSocial values(null, 1, 'youtube', 'https://youtube.com', 'Canal de Youtube', 0);
+insert into redSocial values(null, 1, 'whatsapp', 'https://web.whatsapp.com', 'Grupo de Whatsapp', 0);
+insert into redSocial values(null, 1, 'instagram', 'https://instagram.com', 'Síguenos en Instagram', 0);
+insert into redSocial values(null, 1, 'twitter', 'https://twitter.com', 'Síguenos en Twitter', 0);
+insert into redSocial values(null, 1, 'linkedin', 'https://www.linkedin.com', 'Perfil Linkedin', 0);
+insert into redSocial values(null, 1, 'twitch', 'https://www.twitch.tv', 'Transmisión en Twitch', 0);
